@@ -10,7 +10,7 @@
   "filenamePrefix": "yy-mm-dd",
   "maxDays": 30,
   "syncStartDate": "2026-06-18",
-  "lastSyncEndTimestamp": "2026-07-09T15:27:11.664Z",
+  "lastSyncEndTimestamp": "2026-07-09T16:27:11.130Z",
   "scheduledSync": {
     "enabled": true,
     "intervalMinutes": 30,
@@ -28,50 +28,6 @@
   },
   "tagMigrationVersion": 2,
   "syncHistory": [
-    {
-      "id": "1783485861585-1783485862451-auto",
-      "startedAt": 1783485861585,
-      "finishedAt": 1783485862451,
-      "durationMs": 866,
-      "timestamp": 1783485862451,
-      "result": {
-        "created": 0,
-        "updated": 0,
-        "skipped": 0,
-        "failed": 0,
-        "total": 0,
-        "items": []
-      },
-      "type": "auto",
-      "mode": "auto",
-      "scope": {
-        "maxDays": 0,
-        "syncStartDate": "2026-07-08T04:14:22.429Z"
-      },
-      "status": "success"
-    },
-    {
-      "id": "1783487661575-1783487662307-auto",
-      "startedAt": 1783487661575,
-      "finishedAt": 1783487662307,
-      "durationMs": 732,
-      "timestamp": 1783487662307,
-      "result": {
-        "created": 0,
-        "updated": 0,
-        "skipped": 0,
-        "failed": 0,
-        "total": 0,
-        "items": []
-      },
-      "type": "auto",
-      "mode": "auto",
-      "scope": {
-        "maxDays": 0,
-        "syncStartDate": "2026-07-08T04:44:22.451Z"
-      },
-      "status": "success"
-    },
     {
       "id": "1783489461582-1783489462401-auto",
       "startedAt": 1783489461582,
@@ -465,6 +421,50 @@
       "scope": {
         "maxDays": 0,
         "syncStartDate": "2026-07-09T14:57:10.996Z"
+      },
+      "status": "success"
+    },
+    {
+      "id": "1783612631006-1783612631937-auto",
+      "startedAt": 1783612631006,
+      "finishedAt": 1783612631937,
+      "durationMs": 931,
+      "timestamp": 1783612631937,
+      "result": {
+        "created": 0,
+        "updated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "total": 0,
+        "items": []
+      },
+      "type": "auto",
+      "mode": "auto",
+      "scope": {
+        "maxDays": 0,
+        "syncStartDate": "2026-07-09T15:27:11.664Z"
+      },
+      "status": "success"
+    },
+    {
+      "id": "1783614430185-1783614431130-auto",
+      "startedAt": 1783614430185,
+      "finishedAt": 1783614431130,
+      "durationMs": 945,
+      "timestamp": 1783614431130,
+      "result": {
+        "created": 0,
+        "updated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "total": 0,
+        "items": []
+      },
+      "type": "auto",
+      "mode": "auto",
+      "scope": {
+        "maxDays": 0,
+        "syncStartDate": "2026-07-09T15:57:11.937Z"
       },
       "status": "success"
     }
