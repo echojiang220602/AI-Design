@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780679161596-rdz4btbrq",
+  "providerId": "claude",
+  "title": "Add table of contents sidebar to PDF viewer",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780679161596,
+  "updatedAt": 1781142632164,
+  "lastResponseAt": 1781142604866,
+  "sessionId": "f3485962-e7d6-465e-85ca-9c5caed6facc",
+  "providerState": {
+    "providerSessionId": "f3485962-e7d6-465e-85ca-9c5caed6facc"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 187481,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 187481,
+    "percentage": 19,
+    "contextWindowIsAuthoritative": true
+  }
+}

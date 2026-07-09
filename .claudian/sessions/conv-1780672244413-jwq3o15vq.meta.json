@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780672244413-jwq3o15vq",
+  "providerId": "claude",
+  "title": "提取合并JPG图片中的MD内容到wiki",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780672244413,
+  "updatedAt": 1780679021430,
+  "lastResponseAt": 1780679003740,
+  "sessionId": "1a34a02e-526a-49d3-9e0f-66625fa78573",
+  "providerState": {
+    "providerSessionId": "1a34a02e-526a-49d3-9e0f-66625fa78573"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 0,
+    "percentage": 0,
+    "contextWindowIsAuthoritative": true
+  }
+}

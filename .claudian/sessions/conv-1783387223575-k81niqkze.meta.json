@@ -1,0 +1,24 @@
+{
+  "id": "conv-1783387223575-k81niqkze",
+  "providerId": "claude",
+  "title": "整理227-751字段到Excel字段级数据项",
+  "titleGenerationStatus": "success",
+  "createdAt": 1783387223576,
+  "updatedAt": 1783406704705,
+  "lastResponseAt": 1783406704704,
+  "sessionId": "292504d9-4857-4dae-bc07-7cfcc23f2e36",
+  "providerState": {
+    "providerSessionId": "292504d9-4857-4dae-bc07-7cfcc23f2e36"
+  },
+  "currentNote": "10-Action/15-project-项目跟进/15-06-01-高价值数据.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 9573,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 181435,
+    "contextWindow": 1000000,
+    "contextTokens": 191008,
+    "percentage": 19,
+    "contextWindowIsAuthoritative": true
+  }
+}

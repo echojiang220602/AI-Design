@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782044944042-r5g3pejwl",
+  "providerId": "claude",
+  "title": "添加糯米肠储存及食用方法",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782044944052,
+  "updatedAt": 1782272889885,
+  "lastResponseAt": 1782272869806,
+  "sessionId": "0581f465-e252-4ed5-87aa-8acb800b5dbe",
+  "providerState": {
+    "providerSessionId": "0581f465-e252-4ed5-87aa-8acb800b5dbe"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 0,
+    "percentage": 0,
+    "contextWindowIsAuthoritative": true
+  }
+}

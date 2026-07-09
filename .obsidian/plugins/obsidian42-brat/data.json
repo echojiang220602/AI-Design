@@ -1,0 +1,34 @@
+{
+  "pluginList": [
+    "AndyZhengyan/obsidian-getnote-importer",
+    "ZyphrZero/Obsidian-Termy",
+    "YishenTu/claudian"
+  ],
+  "pluginSubListFrozenVersion": [
+    {
+      "repo": "AndyZhengyan/obsidian-getnote-importer",
+      "version": ""
+    },
+    {
+      "repo": "ZyphrZero/Obsidian-Termy",
+      "version": ""
+    },
+    {
+      "repo": "YishenTu/claudian",
+      "version": ""
+    }
+  ],
+  "themesList": [],
+  "updateAtStartup": false,
+  "updateThemesAtStartup": false,
+  "enableAfterInstall": true,
+  "loggingEnabled": false,
+  "loggingPath": "BRAT-log",
+  "loggingVerboseEnabled": false,
+  "debuggingMode": false,
+  "notificationsEnabled": true,
+  "globalTokenName": "github-access-tokens",
+  "personalAccessToken": "",
+  "selectLatestPluginVersionByDefault": false,
+  "allowIncompatiblePlugins": false
+}

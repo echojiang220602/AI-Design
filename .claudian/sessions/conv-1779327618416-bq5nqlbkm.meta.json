@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779327618416-bq5nqlbkm",
+  "providerId": "claude",
+  "title": "Start daily opening routine",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779327618416,
+  "updatedAt": 1779441346904,
+  "lastResponseAt": 1779441318402,
+  "sessionId": "ef6ffba8-e8a8-4423-b40d-32368752a5fb",
+  "providerState": {
+    "providerSessionId": "ef6ffba8-e8a8-4423-b40d-32368752a5fb"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 172143,
+    "cacheCreationInputTokens": 25521,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 197664,
+    "percentage": 20,
+    "contextWindowIsAuthoritative": true
+  }
+}

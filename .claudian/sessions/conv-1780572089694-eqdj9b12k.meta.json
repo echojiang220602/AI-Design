@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780572089694-eqdj9b12k",
+  "providerId": "claude",
+  "title": "添加数据来源到技能列表",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780572089708,
+  "updatedAt": 1780672002544,
+  "lastResponseAt": 1780671984088,
+  "sessionId": "33fdf843-c937-4cc7-a707-1f14029ed775",
+  "providerState": {
+    "providerSessionId": "33fdf843-c937-4cc7-a707-1f14029ed775"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 35,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 128352,
+    "contextWindow": 1000000,
+    "contextTokens": 128387,
+    "percentage": 13,
+    "contextWindowIsAuthoritative": true
+  }
+}

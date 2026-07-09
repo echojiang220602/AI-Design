@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782386869604-7ktznrtmd",
+  "providerId": "claude",
+  "title": "分析Skill技能市场搜索与详情页效果",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782386869604,
+  "updatedAt": 1782388542470,
+  "lastResponseAt": 1782388468974,
+  "sessionId": "0a1148c6-e653-4374-b891-fcfd1f372c72",
+  "providerState": {
+    "providerSessionId": "0a1148c6-e653-4374-b891-fcfd1f372c72"
+  },
+  "currentNote": "10-Action/12-Active-活跃跟进/2620-skill技能市场搜索效果.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 39784,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 35163,
+    "contextWindow": 1000000,
+    "contextTokens": 74947,
+    "percentage": 7,
+    "contextWindowIsAuthoritative": true
+  }
+}

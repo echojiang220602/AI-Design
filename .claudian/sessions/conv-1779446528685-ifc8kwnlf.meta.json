@@ -1,0 +1,24 @@
+{
+  "id": "conv-1779446528685-ifc8kwnlf",
+  "providerId": "claude",
+  "title": "开始对话",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779446528685,
+  "updatedAt": 1779675362807,
+  "lastResponseAt": 1779675146563,
+  "sessionId": "fc1256e1-fa78-4828-8c32-82db23b4f76e",
+  "providerState": {
+    "providerSessionId": "fc1256e1-fa78-4828-8c32-82db23b4f76e"
+  },
+  "currentNote": "30-Time/34-Daily-日志/2026-05-25（一）.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 144721,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 128416,
+    "contextWindow": 1000000,
+    "contextTokens": 273137,
+    "percentage": 27,
+    "contextWindowIsAuthoritative": true
+  }
+}

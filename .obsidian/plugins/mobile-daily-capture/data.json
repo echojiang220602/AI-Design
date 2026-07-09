@@ -1,0 +1,9 @@
+{
+  "storageMode": "single",
+  "dailyFolder": "30-Time/34-Daily-日志",
+  "dailyFileNameFormat": "{date}（{weekday}）",
+  "thoughtHeading": "每日随想",
+  "singleNotePath": "每日随想.md",
+  "openOnMobileStartup": true,
+  "openOnDesktopStartup": true
+}

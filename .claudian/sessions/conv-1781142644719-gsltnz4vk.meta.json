@@ -1,0 +1,23 @@
+{
+  "id": "conv-1781142644719-gsltnz4vk",
+  "providerId": "claude",
+  "title": "更新技能属性到内置技能清单",
+  "titleGenerationStatus": "success",
+  "createdAt": 1781142644720,
+  "updatedAt": 1782044898960,
+  "lastResponseAt": 1781658875830,
+  "sessionId": "f03a9791-cf1b-4145-a4e4-2867fc3a5370",
+  "providerState": {
+    "providerSessionId": "f03a9791-cf1b-4145-a4e4-2867fc3a5370"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 172767,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 21157,
+    "contextWindow": 1000000,
+    "contextTokens": 193924,
+    "percentage": 19,
+    "contextWindowIsAuthoritative": true
+  }
+}

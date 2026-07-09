@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782993644323-o9ezps5a4",
+  "providerId": "claude",
+  "title": "新增系统验收标准",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782993644323,
+  "updatedAt": 1783387137139,
+  "lastResponseAt": 1783385871206,
+  "sessionId": "7e44ceec-bad4-480f-ae29-81f17031777e",
+  "providerState": {
+    "providerSessionId": "7e44ceec-bad4-480f-ae29-81f17031777e"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 0,
+    "percentage": 0,
+    "contextWindowIsAuthoritative": true
+  }
+}

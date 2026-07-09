@@ -1,0 +1,21 @@
+{
+  "cssTheme": "Baseline",
+  "accentColor": "",
+  "enabledCssSnippets": [
+    "css左侧边栏",
+    "nick-milo-pro-callouts",
+    "书签样式",
+    "书签样式-kivenbig",
+    "callouts-nikmilo"
+  ],
+  "theme": "moonstone",
+  "baseFontSize": 14,
+  "textFontFamily": "FZPingXianYaSongS-R-GB",
+  "nativeMenus": false,
+  "showViewHeader": true,
+  "interfaceFontFamily": "FZPingXianYaSongS-R-GB",
+  "showRibbon": true,
+  "baseFontSizeAction": true,
+  "translucency": false,
+  "monospaceFontFamily": "Inter"
+}

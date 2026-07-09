@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(F:\\\\ACT_2.0_260328_echo\\\\ACT_2.0_echo\\\\.claude\\\\MEMORY.md)",
+      "Write(F:\\\\ACT_2.0_260328_echo\\\\ACT_2.0_echo\\\\.claude\\\\memory\\\\2026-05-14.md)",
+      "Edit(F:\\\\ACT_2.0_260328_echo\\\\ACT_2.0_echo\\\\.claude\\\\memory\\\\2026-05-14.md)",
+      "Write(F:\\\\ACT_2.0_260328_echo\\\\ACT_2.0_echo\\\\.claude\\\\memory\\\\2026-05-19.md)",
+      "Bash(mkdir -p \"F:\\\\ACT_2.0_260328_echo\\\\ACT_2.0_echo\\\\.claude\\\\skills\\\\论文-论文格式理解\")",
+      "Edit(/.claude/skills/论文-论文格式理解/**)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-05-25.md)",
+      "Bash(mkdir -p \"F:/PKM/AI数字员工/.claude/skills/文档整理-双向关联\")",
+      "Edit(/.claude/skills/文档整理-双向关联/**)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-05-29.md)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-05-30.md)",
+      "Edit(/.claude/skills/obsidian-双链规范/**)",
+      "Edit(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\MEMORY.md)",
+      "Edit(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\CLAUDE.md)",
+      "Bash(rm -rf \"F:/PKM/AI数字员工/.claude/skills/obsidian-双链规范\")",
+      "Edit(/.claude/skills/日常-模型辅助决策/**)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-06-02.md)",
+      "Edit(/.claude/skills/翻译-Skill/**)",
+      "Bash(mkdir -p \".claude/skills/MiniMax-CLI\")",
+      "Edit(/.claude/skills/MiniMax-CLI/**)",
+      "Bash(mkdir -p \"F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\skills\\\\日常-Skill导入\")",
+      "Edit(/.claude/skills/日常-Skill导入/**)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-06-17.md)",
+      "Edit(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\memory\\\\2026-06-17.md)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_write_excel.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_write_f001.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_write_f033.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_fix_f227.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_fix_f195.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_full_fix.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_rebuild.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\temp_write_f362.py)",
+      "Write(F:\\\\PKM\\\\AI数字员工\\\\.claude\\\\gen_excel.py)"
+    ]
+  }
+}

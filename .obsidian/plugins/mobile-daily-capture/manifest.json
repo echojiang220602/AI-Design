@@ -1,0 +1,8 @@
+{
+  "id": "mobile-daily-capture",
+  "name": "Mobile Daily Capture",
+  "author": "Kivenbig",
+  "version": "0.1.0",
+  "minAppVersion": "1.0.0",
+  "description": "Mobile-first quick capture view that appends thoughts to the daily note."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780676547825-s784nu833",
+  "providerId": "claude",
+  "title": "根据历史沟通优化文档",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780676547826,
+  "updatedAt": 1781142637364,
+  "lastResponseAt": 1780678663192,
+  "sessionId": "4014f2a9-7630-4d6f-9d4b-e96eca86f8da",
+  "providerState": {
+    "providerSessionId": "4014f2a9-7630-4d6f-9d4b-e96eca86f8da"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 75780,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 71795,
+    "contextWindow": 1000000,
+    "contextTokens": 147575,
+    "percentage": 15,
+    "contextWindowIsAuthoritative": true
+  }
+}

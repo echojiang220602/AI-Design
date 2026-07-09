@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779441408166-umxslzkcn",
+  "providerId": "claude",
+  "title": "精简论文开头三段至500字以内",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779441408173,
+  "updatedAt": 1779446525338,
+  "lastResponseAt": 1779446508305,
+  "sessionId": "3ab05a78-76c6-4781-8009-ca6fa7f978ba",
+  "providerState": {
+    "providerSessionId": "3ab05a78-76c6-4781-8009-ca6fa7f978ba"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 153,
+    "cacheCreationInputTokens": 198184,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 198337,
+    "percentage": 20,
+    "contextWindowIsAuthoritative": true
+  }
+}

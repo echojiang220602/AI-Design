@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782993103279-h5eojhqmx",
+  "providerId": "claude",
+  "title": "更新10-Action文件夹README文档",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782993103279,
+  "updatedAt": 1782993619665,
+  "lastResponseAt": 1782993369593,
+  "sessionId": "f2f2cb8e-c1d8-4f82-88ed-3da3034d278f",
+  "providerState": {
+    "providerSessionId": "f2f2cb8e-c1d8-4f82-88ed-3da3034d278f"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 2055,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 35331,
+    "contextWindow": 1000000,
+    "contextTokens": 37386,
+    "percentage": 4,
+    "contextWindowIsAuthoritative": true
+  }
+}

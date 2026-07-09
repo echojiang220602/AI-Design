@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技能审批后台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"PingFang SC"', '"Microsoft YaHei"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 500; }
+    .badge-blue  { background: #EFF6FF; color: #2563EB; }
+    .badge-green { background: #F0FDF4; color: #16A34A; }
+    .badge-red   { background: #FEF2F2; color: #DC2626; }
+    .badge-gray  { background: #F9FAFB; color: #6B7280; }
+    .badge-orange{ background: #FFF7ED; color: #EA580C; }
+    .tag { display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .tag-purple { background: #F5F3FF; color: #7C3AED; }
+    .tag-cyan   { background: #ECFEFF; color: #0891B2; }
+    .tag-pink   { background: #FDF2F8; color: #DB2777; }
+    .tag-amber  { background: #FFFBEB; color: #D97706; }
+    .timeline-line { position: absolute; left: 11px; top: 24px; bottom: 0; width: 2px; background: #E5E7EB; }
+    .timeline-node { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .table-row-hover:hover { background: #F9FAFB; cursor: pointer; }
+    .table-row-hover.selected { background: #EFF6FF; }
+    .scan-pass { color: #16A34A; }
+    .scan-fail { color: #DC2626; }
+    .scan-pending { color: #D97706; }
+    .collapse-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .collapse-content.open { max-height: 2000px; transition: max-height 0.4s ease; }
+    .checkbox { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #D1D5DB; cursor: pointer; appearance: none; -webkit-appearance: none; background: white; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .checkbox:checked { background: #2563EB; border-color: #2563EB; }
+    .checkbox:checked::after { content: ''; width: 5px; height: 8px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px, -1px); }
+    .notif-dot { width: 8px; height: 8px; border-radius: 50%; background: #EF4444; position: absolute; top: -2px; right: -2px; }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen">
+
+<!-- ======================== PAGE 1: APPROVAL LIST ======================== -->
+<div id="page-list" class="page active">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-4 h-4 text-white"></i>
+      </div>
+      <h1 class="text-lg font-semibold text-gray-900">技能审批</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="relative">
+        <i data-lucide="bell" class="w-5 h-5 text-gray-500"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="flex items-center gap-2 pl-4 border-l border-gray-200">
+        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+          <span class="text-sm font-medium text-blue-600">李</span>
+        </div>
+        <select class="text-sm text-gray-700 bg-transparent border-none focus:outline-none cursor-pointer pr-1">
+          <option>管理员 李明</option>
+          <option>超级管理员 王芳</option>
+          <option>审核员 张伟</option>
+        </select>
+        <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-6 py-6">
+
+    <!-- Page Title + Stats -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900">技能发布审批</h2>
+        <p class="text-sm text-gray-500 mt-1">管理技能市场中的技能发布申请</p>
+      </div>
+      <div class="flex gap-3">
+        <div class="bg-white rounded-xl border border-gray-200 px-4 py-2 text-center min-w-[90px]">
+          <div class="text-2xl font-bold text-blue-600">7</div>
+          <div class="text-xs text-gray-500">待审批</div>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 px-4 py-2 text-center min-w-[90px]">
+          <div class="text-2xl font-bold text-green-600">24</div>
+          <div class="text-xs text-gray-500">已通过</div>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 px-4 py-2 text-center min-w-[90px]">
+          <div class="text-2xl font-bold text-red-500">3</div>
+          <div class="text-xs text-gray-500">已拒绝</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+      <div class="flex flex-wrap items-center gap-3">
+
+        <!-- Status Tabs -->
+        <div class="flex bg-gray-100 rounded-lg p-1 gap-1 mr-2" id="status-tabs">
+          <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all bg-white text-blue-600 shadow-sm" data-status="pending">
+            全部<span class="ml-1 text-xs text-blue-400">10</span>
+          </button>
+          <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all text-gray-500 hover:text-gray-700" data-status="pending">
+            待审批<span class="ml-1 text-xs text-red-400 font-semibold">7</span>
+          </button>
+          <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all text-gray-500 hover:text-gray-700" data-status="approved">
+            已通过<span class="ml-1 text-xs text-green-400">2</span>
+          </button>
+          <button class="px-3 py-1.5 rounded-md text-sm font-medium transition-all text-gray-500 hover:text-gray-700" data-status="rejected">
+            已拒绝<span class="ml-1 text-xs text-red-400">1</span>
+          </button>
+        </div>
+
+        <div class="h-5 w-px bg-gray-200 hidden sm:block"></div>
+
+        <!-- Category -->
+        <div class="flex items-center gap-1.5">
+          <label class="text-sm text-gray-500 whitespace-nowrap">分类</label>
+          <select id="filter-category" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 bg-white">
+            <option value="">全部分类</option>
+            <option>客服助手</option>
+            <option>数据分析</option>
+            <option>内容创作</option>
+            <option>代码开发</option>
+            <option>营销推广</option>
+          </select>
+        </div>
+
+        <!-- Date Range -->
+        <div class="flex items-center gap-1.5">
+          <label class="text-sm text-gray-500 whitespace-nowrap">提交时间</label>
+          <input type="date" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 w-[130px]" value="2026-06-01">
+          <span class="text-gray-400">—</span>
+          <input type="date" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 w-[130px]" value="2026-06-23">
+        </div>
+
+        <!-- Search -->
+        <div class="flex-1 min-w-[200px]">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="search-input" placeholder="搜索技能名称或提交人..." class="w-full text-sm border border-gray-200 rounded-lg pl-9 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300">
+          </div>
+        </div>
+
+        <button class="flex items-center gap-1.5 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-600 transition-colors">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> 更多筛选
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+        <label class="flex items-center gap-2 text-sm text-gray-600">
+          <input type="checkbox" class="checkbox" id="select-all">
+          <span>全选</span>
+          <span class="text-gray-400 ml-1" id="selected-count">已选 0 项</span>
+        </label>
+        <div class="flex gap-2">
+          <button id="btn-batch-pass" class="flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 批量通过
+          </button>
+          <button id="btn-batch-reject" class="flex items-center gap-1.5 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> 批量拒绝
+          </button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-100">
+              <th class="w-10 px-4 py-3"></th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">技能名称</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">分类</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">提交人</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">提交时间</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">状态</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">操作</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Row 1: Pending -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="1">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-blue-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">智能客服助手</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062301</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-purple">客服助手</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">张伟</div>
+                <div class="text-xs text-gray-400">138****2107</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-23</div>
+                <div class="text-xs text-gray-400">14:32</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-blue"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="quick-pass-btn px-2.5 py-1 text-xs font-medium bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors">通过</button>
+                  <button class="quick-reject-btn px-2.5 py-1 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors">拒绝</button>
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 2: Pending -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="2">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 text-purple-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">销售数据分析精灵</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062302</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-cyan">数据分析</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">李娜</div>
+                <div class="text-xs text-gray-400">159****8834</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-23</div>
+                <div class="text-xs text-gray-400">11:08</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-blue"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="quick-pass-btn px-2.5 py-1 text-xs font-medium bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors">通过</button>
+                  <button class="quick-reject-btn px-2.5 py-1 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors">拒绝</button>
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 3: Pending -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="3">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="pen-tool" class="w-4 h-4 text-pink-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">小红书文案生成器</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062205</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-pink">内容创作</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">王美丽</div>
+                <div class="text-xs text-gray-400">136****6621</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-22</div>
+                <div class="text-xs text-gray-400">16:45</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-blue"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="quick-pass-btn px-2.5 py-1 text-xs font-medium bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors">通过</button>
+                  <button class="quick-reject-btn px-2.5 py-1 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors">拒绝</button>
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 4: Pending -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="4">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="code-2" class="w-4 h-4 text-amber-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">PR 代码审查助手</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062203</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-amber">代码开发</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">陈浩</div>
+                <div class="text-xs text-gray-400">177****9045</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-22</div>
+                <div class="text-xs text-gray-400">09:17</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-blue"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="quick-pass-btn px-2.5 py-1 text-xs font-medium bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors">通过</button>
+                  <button class="quick-reject-btn px-2.5 py-1 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors">拒绝</button>
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 5: Approved -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="5">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="megaphone" class="w-4 h-4 text-green-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">私域引流文案助手</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062108</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-orange">营销推广</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">赵海</div>
+                <div class="text-xs text-gray-400">188****3309</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-21</div>
+                <div class="text-xs text-gray-400">15:22</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-green"><i data-lucide="check-circle" class="w-3 h-3"></i> 已通过</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                  <button class="px-2.5 py-1 text-xs font-medium text-gray-400 hover:text-gray-600 rounded-md transition-colors">撤回</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 6: Rejected -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="6">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="zap" class="w-4 h-4 text-red-400"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">快速数据采集工具</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026062012</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-cyan">数据分析</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">周强</div>
+                <div class="text-xs text-gray-400">155****7782</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-20</div>
+                <div class="text-xs text-gray-400">10:05</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-red"><i data-lucide="x-circle" class="w-3 h-3"></i> 已拒绝</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                  <button class="px-2.5 py-1 text-xs font-medium text-gray-400 hover:text-gray-600 rounded-md transition-colors">重新提交</button>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 7: Pending -->
+            <tr class="table-row-hover border-b border-gray-50 transition-colors" data-id="7">
+              <td class="px-4 py-3.5"><input type="checkbox" class="checkbox row-check"></td>
+              <td class="px-4 py-3.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="mail" class="w-4 h-4 text-indigo-500"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer skill-name">邮件智能撰写助手</div>
+                    <div class="text-xs text-gray-400">ID: SKL-2026061915</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5"><span class="tag tag-purple">客服助手</span></td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-900">刘洋</div>
+                <div class="text-xs text-gray-400">182****4413</div>
+              </td>
+              <td class="px-4 py-3.5">
+                <div class="text-sm text-gray-700">06-19</div>
+                <div class="text-xs text-gray-400">08:55</div>
+              </td>
+              <td class="px-4 py-3.5"><span class="badge badge-blue"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span></td>
+              <td class="px-4 py-3.5">
+                <div class="flex gap-1">
+                  <button class="quick-pass-btn px-2.5 py-1 text-xs font-medium bg-green-50 text-green-600 hover:bg-green-100 rounded-md transition-colors">通过</button>
+                  <button class="quick-reject-btn px-2.5 py-1 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors">拒绝</button>
+                  <button class="detail-btn px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-md transition-colors">详情</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+        <div class="text-sm text-gray-500">共 <span class="font-medium text-gray-700">10</span> 条记录，每页
+          <select class="text-sm border border-gray-200 rounded px-1.5 py-0.5 bg-white">
+            <option selected>10</option>
+            <option>20</option>
+            <option>50</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors disabled:opacity-30">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          </button>
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-blue-600 text-white font-medium">1</button>
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-sm text-gray-600 hover:bg-gray-100 transition-colors">2</button>
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-sm text-gray-600 hover:bg-gray-100 transition-colors">3</button>
+          <span class="px-1 text-gray-400">...</span>
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-sm text-gray-600 hover:bg-gray-100 transition-colors">10</button>
+          <button class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors">
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ======================== PAGE 2: APPROVAL DETAIL ======================== -->
+<div id="page-detail" class="page">
+
+  <!-- Detail Header -->
+  <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+    <div class="flex items-center gap-4">
+      <button id="btn-back" class="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回列表
+      </button>
+      <div class="h-5 w-px bg-gray-200"></div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-lg font-semibold text-gray-900">技能审批详情</h1>
+        <span class="badge badge-blue text-xs"><i data-lucide="clock" class="w-3 h-3"></i> 待审批</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="btn-detail-pass" class="flex items-center gap-1.5 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
+        <i data-lucide="check-circle" class="w-4 h-4"></i> 通过
+      </button>
+      <button id="btn-detail-reject" class="flex items-center gap-1.5 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
+        <i data-lucide="x-circle" class="w-4 h-4"></i> 拒绝
+      </button>
+      <button id="btn-detail-return" class="flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> 打回修改
+      </button>
+    </div>
+  </header>
+
+  <div class="max-w-5xl mx-auto px-6 py-6">
+
+    <!-- Skill Header Card -->
+    <div class="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+      <div class="flex items-start gap-4">
+        <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="bot" class="w-7 h-7 text-blue-500"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-1">
+            <h2 class="text-xl font-bold text-gray-900">智能客服助手</h2>
+            <span class="tag tag-purple">客服助手</span>
+          </div>
+          <p class="text-gray-500 text-sm mb-3">自动回复客户咨询，7×24小时在线，降低人工客服压力</p>
+          <div class="flex items-center gap-4 text-xs text-gray-400">
+            <span>ID: SKL-2026062301</span>
+            <span>•</span>
+            <span>提交人：张伟 (138****2107)</span>
+            <span>•</span>
+            <span>提交时间：2026-06-23 14:32</span>
+          </div>
+        </div>
+        <!-- Status Timeline Preview -->
+        <div class="hidden lg:flex items-center gap-1">
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="check" class="w-4 h-4 text-green-600"></i></div>
+            <span class="text-[10px] text-green-600 mt-0.5">提交</span>
+          </div>
+          <div class="w-6 h-0.5 bg-green-400"></div>
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="shield-check" class="w-4 h-4 text-green-600"></i></div>
+            <span class="text-[10px] text-green-600 mt-0.5">扫描</span>
+          </div>
+          <div class="w-6 h-0.5 bg-amber-400"></div>
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-blue-100 border-2 border-blue-400 flex items-center justify-center animate-pulse"><i data-lucide="clipboard-check" class="w-4 h-4 text-blue-600"></i></div>
+            <span class="text-[10px] text-blue-600 mt-0.5 font-medium">审批中</span>
+          </div>
+          <div class="w-6 h-0.5 bg-gray-200"></div>
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center"><i data-lucide="store" class="w-4 h-4 text-gray-400"></i></div>
+            <span class="text-[10px] text-gray-400 mt-0.5">上架</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Sections -->
+    <div class="space-y-3">
+
+      <!-- Section 1: Basic Info -->
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button class="collapse-toggle w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors" data-target="section-basic">
+          <div class="flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+            <span class="font-medium text-gray-900">基本信息</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-400">展开</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform collapse-icon"></i>
+          </div>
+        </button>
+        <div class="collapse-content open" id="section-basic">
+          <div class="px-5 pb-5 border-t border-gray-100 pt-4 grid grid-cols-2 gap-x-8 gap-y-3">
+            <div>
+              <div class="text-xs text-gray-400 mb-1">技能名称</div>
+              <div class="text-sm font-medium text-gray-900">智能客服助手</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400 mb-1">所属分类</div>
+              <div class="text-sm font-medium text-gray-900">客服助手</div>
+            </div>
+            <div class="col-span-2">
+              <div class="text-xs text-gray-400 mb-1">一句话简介</div>
+              <div class="text-sm text-gray-700">自动回复客户咨询，7×24小时在线，降低人工客服压力，支持多轮对话与意图识别</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400 mb-1">联系人</div>
+              <div class="text-sm text-gray-700">张伟</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400 mb-1">联系电话</div>
+              <div class="text-sm text-gray-700">138****2107</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Features -->
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button class="collapse-toggle w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors" data-target="section-features">
+          <div class="flex items-center gap-2">
+            <i data-lucide="list-checks" class="w-4 h-4 text-purple-500"></i>
+            <span class="font-medium text-gray-900">功能说明</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-400">展开</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform collapse-icon"></i>
+          </div>
+        </button>
+        <div class="collapse-content open" id="section-features">
+          <div class="px-5 pb-5 border-t border-gray-100 pt-4 space-y-4">
+            <div>
+              <div class="text-xs text-gray-400 mb-2 font-medium">核心功能</div>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></span>
+                  <span class="text-sm text-gray-700">意图识别：自动识别客户问题类型（咨询/投诉/售后/退款），精准分配回答策略</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></span>
+                  <span class="text-sm text-gray-700">多轮对话：支持上下文记忆，复杂问题可连续追问</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></span>
+                  <span class="text-sm text-gray-700">知识库检索：结合企业知识库快速匹配答案，准确率超过 92%</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></span>
+                  <span class="text-sm text-gray-700">人工接管：无法解答时自动转接人工，并附上对话摘要</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400 mb-2 font-medium">使用场景</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-purple-50 text-purple-600 text-xs rounded-md">电商售后</span>
+                <span class="px-2.5 py-1 bg-purple-50 text-purple-600 text-xs rounded-md">在线教育咨询</span>
+                <span class="px-2.5 py-1 bg-purple-50 text-purple-600 text-xs rounded-md">金融产品答疑</span>
+                <span class="px-2.5 py-1 bg-purple-50 text-purple-600 text-xs rounded-md">企业内部HR问答</span>
+                <span class="px-2.5 py-1 bg-purple-50 text-purple-600 text-xs rounded-md">政务服务热线</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Example Prompts -->
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button class="collapse-toggle w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors" data-target="section-prompts">
+          <div class="flex items-center gap-2">
+            <i data-lucide="message-square" class="w-4 h-4 text-cyan-500"></i>
+            <span class="font-medium text-gray-900">示例提示词</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-400">展开</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform collapse-icon"></i>
+          </div>
+        </button>
+        <div class="collapse-content open" id="section-prompts">
+          <div class="px-5 pb-5 border-t border-gray-100 pt-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-400 font-medium">示例 1</span>
+              <button class="copy-btn flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 transition-colors">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> 复制
+              </button>
+            </div>
+            <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 text-sm overflow-x-auto leading-relaxed"><code>你是「智能客服助手」，由[公司名]提供。
+
+角色设定：
+- 你是一位专业、耐心的在线客服代表
+- 擅长理解客户意图，提供精准解答
+- 在无法解答时诚实告知并转接人工
+
+使用规则：
+1. 始终保持专业、友好的服务态度
+2. 回复控制在 150 字以内
+3. 涉及政策/法规问题建议咨询人工
+4. 不承诺具体优惠幅度，引导至官方渠道
+
+开场白：「您好，我是[公司名]在线客服，请问有什么可以帮您？」</code></pre>
+
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-xs text-gray-400 font-medium">示例 2</span>
+              <button class="copy-btn flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 transition-colors">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> 复制
+              </button>
+            </div>
+            <pre class="bg-gray-900 text-gray-100 rounded-lg p-4 text-sm overflow-x-auto leading-relaxed"><code>## 对话示例
+
+用户：我的订单号是 ORD20260623001，一直没收到货
+客服：您好！感谢您的咨询，我来帮您查询一下订单状态。
+[查询物流系统] 您的订单已于6月21日从广州仓发出，
+预计送达时间为6月24日。当前物流显示在【广州-深圳中转站】。
+由于近期暴雨天气影响，配送可能有轻微延迟，给您带来
+不便深表歉意。如需了解更多物流详情，请点击：[查看物流]
+请问还有其他问题吗？</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Security Scan -->
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button class="collapse-toggle w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors" data-target="section-scan">
+          <div class="flex items-center gap-2">
+            <i data-lucide="shield" class="w-4 h-4 text-green-500"></i>
+            <span class="font-medium text-gray-900">安全扫描结果</span>
+            <span class="badge badge-green text-xs ml-1"><i data-lucide="check-circle" class="w-3 h-3"></i> 全部通过</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-400">展开</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform collapse-icon"></i>
+          </div>
+        </button>
+        <div class="collapse-content open" id="section-scan">
+          <div class="px-5 pb-5 border-t border-gray-100 pt-4">
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <!-- Scan Item 1: Pass -->
+              <div class="border border-green-200 rounded-lg p-3 bg-green-50">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-green-600"></i>
+                    <span class="text-xs font-medium text-green-800">内容安全检测</span>
+                  </div>
+                  <span class="text-xs font-semibold text-green-600">通过</span>
+                </div>
+                <div class="text-xs text-green-700">未检测到违规内容<br>涉政/涉黄/涉暴: 0项</div>
+              </div>
+              <!-- Scan Item 2: Pass -->
+              <div class="border border-green-200 rounded-lg p-3 bg-green-50">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="lock" class="w-4 h-4 text-green-600"></i>
+                    <span class="text-xs font-medium text-green-800">数据隐私检测</span>
+                  </div>
+                  <span class="text-xs font-semibold text-green-600">通过</span>
+                </div>
+                <div class="text-xs text-green-700">未收集敏感个人信息<br>API调用规范: 合格</div>
+              </div>
+              <!-- Scan Item 3: Fail -->
+              <div class="border border-red-200 rounded-lg p-3 bg-red-50">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-500"></i>
+                    <span class="text-xs font-medium text-red-800">功能风险检测</span>
+                  </div>
+                  <span class="text-xs font-semibold text-red-500">未通过</span>
+                </div>
+                <div class="text-xs text-red-700">提示词边界模糊<br>存在绕过的可能</div>
+              </div>
+            </div>
+            <div class="bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+              <div class="flex items-start gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0"></i>
+                <div>
+                  <div class="text-xs font-semibold text-red-700 mb-1">风险详情</div>
+                  <div class="text-xs text-red-600 space-y-0.5">
+                    <div>• 检测项「Prompt Injection」: 在第2段示例提示词中，发现可通过外部输入覆盖角色设定，存在提示词注入风险</div>
+                    <div>• 建议：增加输入验证规则，明确禁止用户修改系统角色设定</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="text-xs text-gray-400">扫描完成时间: 2026-06-23 14:35 · 耗时 3分12秒</div>
+              <button class="text-xs text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> 查看完整报告
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Approval History -->
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button class="collapse-toggle w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors" data-target="section-history">
+          <div class="flex items-center gap-2">
+            <i data-lucide="clock" class="w-4 h-4 text-amber-500"></i>
+            <span class="font-medium text-gray-900">审批历史记录</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-400">展开</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform collapse-icon"></i>
+          </div>
+        </button>
+        <div class="collapse-content open" id="section-history">
+          <div class="px-5 pb-5 border-t border-gray-100 pt-4">
+            <div class="space-y-0">
+
+              <!-- History Item 1: Pending -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center flex-shrink-0">
+                  <div class="timeline-node bg-blue-500 text-white"><i data-lucide="clock" class="w-3.5 h-3.5"></i></div>
+                  <div class="timeline-line" style="display:none"></div>
+                </div>
+                <div class="pb-5">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm font-medium text-gray-900">提交审批</span>
+                    <span class="badge badge-blue text-xs">当前</span>
+                  </div>
+                  <div class="text-xs text-gray-400 mb-1.5">2026-06-23 14:32 · 张伟</div>
+                  <div class="text-xs text-gray-500">提交人提交了技能发布申请，等待审批管理员审核</div>
+                </div>
+              </div>
+
+              <!-- History Item 2: Scan Pass -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center flex-shrink-0">
+                  <div class="timeline-node bg-green-100 border-2 border-green-400"><i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i></div>
+                  <div class="timeline-line"></div>
+                </div>
+                <div class="pb-5">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm font-medium text-gray-900">安全扫描通过</span>
+                    <span class="badge badge-green text-xs">已完成</span>
+                  </div>
+                  <div class="text-xs text-gray-400 mb-1.5">2026-06-23 14:35 · 系统</div>
+                  <div class="text-xs text-gray-500">内容安全检测 ✓、数据隐私检测 ✓、功能风险检测 ✗ (1项风险)</div>
+                </div>
+              </div>
+
+              <!-- History Item 3: Submitted -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center flex-shrink-0">
+                  <div class="timeline-node bg-green-100 border-2 border-green-400"><i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i></div>
+                </div>
+                <div class="pb-5">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm font-medium text-gray-900">提交成功</span>
+                    <span class="badge badge-green text-xs">已完成</span>
+                  </div>
+                  <div class="text-xs text-gray-400 mb-1.5">2026-06-23 14:32 · 张伟</div>
+                  <div class="text-xs text-gray-500">技能「智能客服助手」提交成功，进入安全扫描队列</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bg-white rounded-xl border border-gray-200 mt-4 p-5 sticky bottom-4 shadow-lg">
+      <div class="flex items-start gap-4">
+        <div class="flex-1">
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">审批备注 <span class="text-xs text-gray-400 font-normal">(通过时非必填，拒绝/打回时必填)</span></label>
+          <textarea id="approval-remark" rows="3" placeholder="请输入审批备注（拒绝/打回时必填，请说明原因）..." class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 resize-none"></textarea>
+          <div class="text-xs text-gray-400 mt-1">还可以输入 <span id="char-count">200</span> 字</div>
+        </div>
+        <div class="flex flex-col gap-2 pt-6">
+          <button id="action-pass" class="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm whitespace-nowrap">
+            <i data-lucide="check-circle" class="w-4 h-4"></i> 确认通过
+          </button>
+          <button id="action-reject" class="flex items-center justify-center gap-2 px-6 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors shadow-sm whitespace-nowrap">
+            <i data-lucide="x-circle" class="w-4 h-4"></i> 确认拒绝
+          </button>
+          <button id="action-return" class="flex items-center justify-center gap-2 px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-medium transition-colors shadow-sm whitespace-nowrap">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> 打回修改
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ======================== MODAL: Quick Action Confirm ======================== -->
+<div id="modal-quick-action" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl w-[420px] overflow-hidden">
+    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-gray-900" id="modal-title">确认审批</h3>
+      <button id="modal-close" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+        <i data-lucide="x" class="w-4 h-4 text-gray-500"></i>
+      </button>
+    </div>
+    <div class="px-6 py-5">
+      <p class="text-sm text-gray-600 mb-4" id="modal-message">确定要通过该技能审批吗？</p>
+      <label class="block text-sm font-medium text-gray-700 mb-1.5">审批备注 <span class="text-xs text-gray-400 font-normal">(可选)</span></label>
+      <textarea id="modal-remark" rows="3" placeholder="请输入备注..." class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 resize-none"></textarea>
+    </div>
+    <div class="px-6 py-4 bg-gray-50 flex items-center justify-end gap-3">
+      <button id="modal-cancel" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">取消</button>
+      <button id="modal-confirm" class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors">确认</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ======================== PAGE 3: STATUS TIMELINE (User View) ======================== -->
+<div id="page-timeline" class="page">
+  <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+    <div class="flex items-center gap-3">
+      <button id="btn-back-timeline" class="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> 返回详情
+      </button>
+      <div class="h-5 w-px bg-gray-200"></div>
+      <h1 class="text-lg font-semibold text-gray-900">发布进度</h1>
+    </div>
+  </header>
+
+  <div class="max-w-lg mx-auto px-6 py-10">
+    <div class="text-center mb-10">
+      <div class="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="bot" class="w-8 h-8 text-blue-500"></i>
+      </div>
+      <h2 class="text-xl font-bold text-gray-900 mb-1">智能客服助手</h2>
+      <p class="text-sm text-gray-500">技能发布进度跟踪</p>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-4">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm font-medium text-gray-700">当前状态</span>
+        <span class="badge badge-blue text-sm px-3 py-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 等待审批</span>
+      </div>
+      <div class="text-sm text-gray-500">预计审批时间：1-2个工作日</div>
+    </div>
+
+    <!-- Vertical Timeline -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-6">发布流程</h3>
+      <div class="space-y-0">
+
+        <!-- Step 1: Complete -->
+        <div class="flex gap-4 relative">
+          <div class="flex flex-col items-center flex-shrink-0 z-10">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center shadow-sm">
+              <i data-lucide="check" class="w-5 h-5"></i>
+            </div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-green-700">提交成功</span>
+              <span class="badge badge-green text-xs">完成</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">2026-06-23 14:32</div>
+            <div class="text-xs text-gray-500">技能「智能客服助手」已提交</div>
+          </div>
+        </div>
+
+        <!-- Step 2: Complete -->
+        <div class="flex gap-4 relative">
+          <div class="flex flex-col items-center flex-shrink-0 z-10">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center shadow-sm">
+              <i data-lucide="check" class="w-5 h-5"></i>
+            </div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-green-700">安全扫描</span>
+              <span class="badge badge-green text-xs">通过</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">2026-06-23 14:35</div>
+            <div class="text-xs text-gray-500">内容安全、数据隐私检测通过<br>功能风险检测有1项需注意</div>
+          </div>
+        </div>
+
+        <!-- Step 3: Current Active -->
+        <div class="flex gap-4 relative">
+          <div class="flex flex-col items-center flex-shrink-0 z-10">
+            <div class="w-9 h-9 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg ring-4 ring-blue-100 animate-pulse">
+              <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+            </div>
+            <div class="w-0.5 flex-1 bg-gray-200 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-blue-700">等待审批</span>
+              <span class="badge badge-blue text-xs">进行中</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">2026-06-23 14:36</div>
+            <div class="text-xs text-gray-500">已提交审批管理员，排队中</div>
+          </div>
+        </div>
+
+        <!-- Step 4: Pending -->
+        <div class="flex gap-4 relative">
+          <div class="flex flex-col items-center flex-shrink-0 z-10">
+            <div class="w-9 h-9 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center">
+              <i data-lucide="store" class="w-5 h-5 text-gray-300"></i>
+            </div>
+            <div class="w-0.5 flex-1 bg-gray-200 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-gray-400">技能上架</span>
+              <span class="badge badge-gray text-xs">待完成</span>
+            </div>
+            <div class="text-xs text-gray-400">审批通过后自动上架</div>
+          </div>
+        </div>
+
+        <!-- Step 5: Pending -->
+        <div class="flex gap-4 relative">
+          <div class="flex flex-col items-center flex-shrink-0 z-10">
+            <div class="w-9 h-9 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-5 h-5 text-gray-300"></i>
+            </div>
+          </div>
+          <div class="pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-gray-400">上线运营</span>
+              <span class="badge badge-gray text-xs">待完成</span>
+            </div>
+            <div class="text-xs text-gray-400">技能在市场中可见，开始服务用户</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Failed Timeline Variant -->
+    <div class="mt-6 bg-white rounded-2xl border border-gray-200 p-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-6">扫描失败变体</h3>
+      <div class="space-y-0">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="text-sm font-semibold text-green-700 mb-0.5">提交成功</div>
+            <div class="text-xs text-gray-400">已完成</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-red-500 text-white flex items-center justify-center shadow-sm"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-red-200 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-red-700">安全扫描</span>
+              <span class="badge badge-red text-xs">失败</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">内容安全检测未通过</div>
+            <div class="text-xs text-red-600 bg-red-50 rounded px-2 py-1.5 border border-red-100">检测到违规内容，请修改后重新提交</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-sm"><i data-lucide="rotate-ccw" class="w-5 h-5"></i></div>
+          </div>
+          <div class="pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-amber-700">修改后重新提交</span>
+              <span class="badge badge-orange text-xs">待操作</span>
+            </div>
+            <div class="text-xs text-gray-400">修复问题后再次提交扫描</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rejected Variant -->
+    <div class="mt-6 bg-white rounded-2xl border border-gray-200 p-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-6">审批拒绝变体</h3>
+      <div class="space-y-0">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="text-sm font-semibold text-green-700">提交成功</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="text-sm font-semibold text-green-700">安全扫描</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-green-400 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="text-sm font-semibold text-green-700">等待审批</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-red-500 text-white flex items-center justify-center shadow-sm"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="w-0.5 flex-1 bg-red-200 my-1"></div>
+          </div>
+          <div class="pb-6 pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-red-700">审批拒绝</span>
+              <span class="badge badge-red text-xs">终止</span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">2026-06-23 15:10 · 管理员 李明</div>
+            <div class="text-xs text-red-600 bg-red-50 rounded px-2 py-1.5 border border-red-100">功能描述与实际能力不符，需补充技术文档</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-sm"><i data-lucide="rotate-ccw" class="w-5 h-5"></i></div>
+          </div>
+          <div class="pt-1">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-sm font-semibold text-amber-700">修改后重新提交</span>
+              <span class="badge badge-orange text-xs">待操作</span>
+            </div>
+            <div class="text-xs text-gray-400">根据审批意见修改后再次提交</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // ============ Navigation ============
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    lucide.createIcons();
+  }
+
+  // Back button
+  document.getElementById('btn-back').addEventListener('click', () => showPage('page-list'));
+  document.getElementById('btn-back-timeline').addEventListener('click', () => showPage('page-detail'));
+
+  // Detail buttons
+  document.querySelectorAll('.detail-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPage('page-detail');
+    });
+  });
+
+  // Timeline view from detail page
+  document.querySelector('.bg-blue-50 .animate-pulse').closest('.flex').style.cursor = 'pointer';
+  // (simplified: add a small button near detail header)
+  const timelineHint = document.createElement('button');
+  timelineHint.className = 'text-xs text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1 ml-4';
+  timelineHint.innerHTML = '<i data-lucide="activity" class="w-3.5 h-3.5"></i> 查看发布进度';
+  timelineHint.addEventListener('click', () => showPage('page-timeline'));
+  document.querySelector('#page-detail header .flex.items-center.gap-4 > div:last-child').appendChild(timelineHint);
+  lucide.createIcons();
+
+  // ============ Status Tab Switching ============
+  document.querySelectorAll('#status-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#status-tabs button').forEach(b => {
+        b.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+        b.classList.add('text-gray-500');
+      });
+      btn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+      btn.classList.remove('text-gray-500');
+    });
+  });
+
+  // ============ Collapsible Sections ============
+  document.querySelectorAll('.collapse-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const target = document.getElementById(toggle.dataset.target);
+      const icon = toggle.querySelector('.collapse-icon');
+      const span = toggle.querySelector('span.text-xs.text-gray-400');
+      target.classList.toggle('open');
+      if (target.classList.contains('open')) {
+        icon.style.transform = 'rotate(0deg)';
+        if (span) span.textContent = '收起';
+      } else {
+        icon.style.transform = 'rotate(-90deg)';
+        if (span) span.textContent = '展开';
+      }
+    });
+  });
+
+  // ============ Checkbox Selection ============
+  const selectAll = document.getElementById('select-all');
+  const rowChecks = document.querySelectorAll('.row-check');
+  const selectedCount = document.getElementById('selected-count');
+  const batchPassBtn = document.getElementById('btn-batch-pass');
+  const batchRejectBtn = document.getElementById('btn-batch-reject');
+
+  function updateSelection() {
+    const checked = document.querySelectorAll('.row-check:checked');
+    const count = checked.length;
+    selectedCount.textContent = `已选 ${count} 项`;
+    batchPassBtn.disabled = count === 0;
+    batchRejectBtn.disabled = count === 0;
+    selectAll.checked = count === rowChecks.length;
+    selectAll.indeterminate = count > 0 && count < rowChecks.length;
+  }
+
+  selectAll.addEventListener('change', () => {
+    rowChecks.forEach(cb => { cb.checked = selectAll.checked; });
+    updateSelection();
+  });
+
+  rowChecks.forEach(cb => cb.addEventListener('change', updateSelection));
+
+  // ============ Modal ============
+  const modal = document.getElementById('modal-quick-action');
+  const modalTitle = document.getElementById('modal-title');
+  const modalMessage = document.getElementById('modal-message');
+  const modalConfirm = document.getElementById('modal-confirm');
+  let modalAction = 'pass';
+
+  function openModal(action, title, message, confirmText) {
+    modalAction = action;
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modalConfirm.textContent = confirmText;
+    modalConfirm.className = `px-5 py-2 bg-${action === 'pass' ? 'green' : 'red'}-600 hover:bg-${action === 'pass' ? 'green' : 'red'}-700 text-white rounded-lg text-sm font-medium transition-colors`;
+    modal.classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.getElementById('modal-remark').value = '';
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-cancel').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  // Quick pass/reject buttons
+  document.querySelectorAll('.quick-pass-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal('pass', '确认通过', '确定要通过该技能审批吗？', '确认通过');
+    });
+  });
+  document.querySelectorAll('.quick-reject-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal('reject', '确认拒绝', '确定要拒绝该技能审批吗？请填写拒绝原因。', '确认拒绝');
+    });
+  });
+
+  // Detail page action buttons
+  document.getElementById('btn-detail-pass').addEventListener('click', () => {
+    openModal('pass', '确认通过', '确定要通过该技能审批吗？', '确认通过');
+  });
+  document.getElementById('btn-detail-reject').addEventListener('click', () => {
+    openModal('reject', '确认拒绝', '确定要拒绝该技能审批吗？请填写拒绝原因。', '确认拒绝');
+  });
+  document.getElementById('btn-detail-return').addEventListener('click', () => {
+    openModal('return', '打回修改', '确定要将该技能打回修改吗？提交人需要重新修改后提交。', '确认打回');
+  });
+
+  // Modal confirm
+  modalConfirm.addEventListener('click', () => {
+    const remark = document.getElementById('modal-remark').value;
+    closeModal();
+    // Visual feedback
+    const msg = modalAction === 'pass' ? '已通过' : modalAction === 'reject' ? '已拒绝' : '已打回修改';
+    showToast(`${msg}，备注：${remark || '无'}`);
+  });
+
+  // Bottom action buttons
+  document.getElementById('action-pass').addEventListener('click', () => {
+    openModal('pass', '确认通过', '确定要通过该技能审批吗？', '确认通过');
+  });
+  document.getElementById('action-reject').addEventListener('click', () => {
+    const remark = document.getElementById('approval-remark').value;
+    if (!remark.trim()) {
+      showToast('请填写拒绝原因', 'error');
+      return;
+    }
+    showToast('已拒绝，备注：' + remark);
+    document.getElementById('approval-remark').value = '';
+  });
+  document.getElementById('action-return').addEventListener('click', () => {
+    const remark = document.getElementById('approval-remark').value;
+    if (!remark.trim()) {
+      showToast('请填写打回原因', 'error');
+      return;
+    }
+    showToast('已打回修改，备注：' + remark);
+    document.getElementById('approval-remark').value = '';
+  });
+
+  // ============ Char Count ============
+  document.getElementById('approval-remark').addEventListener('input', function () {
+    const remaining = 200 - this.value.length;
+    document.getElementById('char-count').textContent = Math.max(0, remaining);
+    if (remaining < 0) {
+      this.value = this.value.slice(0, 200);
+      document.getElementById('char-count').textContent = 0;
+    }
+  });
+
+  // ============ Copy Button ============
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pre = btn.closest('.space-y-3').querySelector('pre');
+      if (pre) {
+        navigator.clipboard.writeText(pre.textContent).then(() => {
+          btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> 已复制';
+          lucide.createIcons();
+          setTimeout(() => {
+            btn.innerHTML = '<i data-lucide="copy" class="w-3.5 h-3.5"></i> 复制';
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+  });
+
+  // ============ Toast ============
+  function showToast(message, type = 'success') {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = `toast fixed top-6 right-6 z-[100] px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 text-sm font-medium animate-[slideIn_0.3s_ease] ${type === 'error' ? 'bg-red-500 text-white' : 'bg-gray-800 text-white'}`;
+    toast.innerHTML = `<i data-lucide="${type === 'error' ? 'alert-circle' : 'check-circle'}" class="w-4 h-4"></i> ${message}`;
+    document.body.appendChild(toast);
+    lucide.createIcons();
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity 0.3s';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // ============ Search Filter ============
+  document.getElementById('search-input').addEventListener('input', function () {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#table-body tr').forEach(row => {
+      const name = row.querySelector('.skill-name')?.textContent.toLowerCase() || '';
+      const user = row.querySelector('.text-sm.text-gray-900')?.textContent.toLowerCase() || '';
+      row.style.display = (name.includes(q) || user.includes(q)) ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>

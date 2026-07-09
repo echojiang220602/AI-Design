@@ -1,0 +1,329 @@
+{
+  "main": {
+    "id": "5324373015726ba8",
+    "type": "split",
+    "children": [
+      {
+        "id": "0e0b6bb8ef33745e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b87c19476ef13f98",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00-开始使用.md",
+                "mode": "preview",
+                "source": true,
+                "backlinks": false
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "00-开始使用"
+            }
+          },
+          {
+            "id": "05f27c00e6bd59bb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "10-Action/15-project-项目跟进/1500-项目整体情况/1500-0001-项目概述.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "1500-0001-项目概述"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2dcb84b345405f20",
+    "type": "split",
+    "children": [
+      {
+        "id": "b700d6400870eb0c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "10e54202e338a478",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "697412891ec38709",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": true,
+                "explainSearch": false,
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "c4bef8f01f32a4b3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          },
+          {
+            "id": "cfc8647886e45274",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "notebook-navigator"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 340.5
+  },
+  "right": {
+    "id": "380e11ce3f55f19a",
+    "type": "split",
+    "children": [
+      {
+        "id": "85f70bb9ae8cc3f4",
+        "type": "tabs",
+        "dimension": 75.72815533980582,
+        "children": [
+          {
+            "id": "2647e0a8d275dd8a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "30-Time/31-Vision-愿景/愿景信-模板.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "愿景信-模板 的反向链接列表"
+            }
+          },
+          {
+            "id": "1b657852880850ca",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "30-Time/34-Daily-日志/2026-05-11（一）.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "2026-05-11（一） 的出链列表"
+            }
+          },
+          {
+            "id": "c2baf31f6313dcbe",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "bc26715830b38687",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "9455ddcc729f382c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "10-Action/12-Active-活跃跟进/2606-AI数字员工-数字员工星际图.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "2606-AI数字员工-数字员工星际图 的大纲"
+            }
+          },
+          {
+            "id": "854d69d5529e4cb1",
+            "type": "leaf",
+            "state": {
+              "type": "mobile-daily-capture-view",
+              "state": {},
+              "icon": "message-square-plus",
+              "title": "每日随想"
+            }
+          },
+          {
+            "id": "0b6663f1b5e2917f",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          }
+        ],
+        "currentTab": 6
+      },
+      {
+        "id": "6c70e91d7ffa2fae",
+        "type": "tabs",
+        "dimension": 24.271844660194173,
+        "children": [
+          {
+            "id": "596abe0eec55c534",
+            "type": "leaf",
+            "state": {
+              "type": "bases",
+              "state": {
+                "file": "40-storage/44-base-数据视图/base-查询-当前笔记的链接.base",
+                "viewName": "入链（inlinks）"
+              },
+              "icon": "lucide-table",
+              "title": "base-查询-当前笔记的链接"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 514.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:新建数据库": false,
+      "publish:发布更改": true,
+      "switcher:打开快速切换": true,
+      "templates:插入模板": true,
+      "command-palette:打开命令面板": true,
+      "canvas:新建白板": true,
+      "graph:查看关系图谱": true,
+      "workspaces:管理工作区布局": true,
+      "daily-notes:打开/创建今天的日记": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "callout-manager:Insert Callout": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "templater-obsidian:Templater": false,
+      "notebook-navigator:笔记本导航器": false,
+      "termy:Open Termy terminal": false,
+      "omnisearch:Omnisearch": false,
+      "i18n:I18N": false,
+      "notehelper:tongbuzhushou": false,
+      "claudian:Open Claudian": false,
+      "getnote-importer:同步得到大脑": false,
+      "obsidian42-brat:BRAT": false
+    }
+  },
+  "active": "05f27c00e6bd59bb",
+  "lastOpenFiles": [
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0003-货源地分析系统需求.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0001-0625温台项目会议.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0007-集疏运管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0008-单证与EDI管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0006-水平运输与设备调度管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0005-集装箱堆场管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0004-闸口通行管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0003-装卸船作业管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0002-船舶预报与泊位管理域.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据/1501-0001-高价值数据.md",
+    "10-Action/15-project-项目跟进/1500-项目整体情况/1500-01-项目概述.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0007-SV声析系统.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0006-客户的重要事件.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0005-工单流转.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0004-客户通话记录生成.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/1506-0002-0630温台项目会议.md",
+    "10-Action/15-project-项目跟进/1500-项目整体情况/1500-0001-项目概述.md",
+    "10-Action/15-project-项目跟进/1506-温台项目/15-0001-0625温台项目会议.md",
+    "10-Action/15-project-项目跟进/1506-温台项目",
+    "10-Action/15-project-项目跟进/1501-高价值数据/README.md",
+    "10-Action/15-project-项目跟进/1501-高价值数据",
+    "00-开始使用.md",
+    "10-Action/15-project-项目跟进/1500-项目整体情况",
+    "10-Action/16-present-发布会/16-0012-AI数字员工-主持人串讲稿-V1.md",
+    "10-Action/16-present-发布会/16-0011-AI数字员工-主持人串讲稿.md",
+    "10-Action/16-present-发布会/16-0010-AI数字员工-发布稿.md",
+    "10-Action/16-present-发布会/16-0009-AI数字员工-发布脚本初版.md",
+    "10-Action/16-present-发布会/16-0008-AI数字员工-星际图-故事板.md",
+    "10-Action/16-present-发布会/16-0007-AI数字员工-星际视频-字幕.md",
+    "40-storage/44-base-数据视图/base-当日创建笔记.base",
+    "10-Action/14-design-产品设计/1405-专项Agent",
+    "10-Action/14-design-产品设计/1401-创建Agent",
+    "10-Action/14-design-产品设计/1400-整体规划/未命名",
+    "10-Action/14-design-产品设计/1400-整体规划",
+    "10-Action/14-design-产品设计/1403-我的Agent",
+    "10-Action/14-design-产品设计/1401-01-技术调研",
+    "10-Action/12-Active-活跃跟进/attachments/03_detail_2.webp",
+    "10-Action/12-Active-活跃跟进/attachments/02_detail_1.webp",
+    "10-Action/12-Active-活跃跟进/attachments/01_search_result.webp",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/3bd2148c3e8a94f889c464d8fce2a0ce_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/226d4a4df5f70987ec79abad17246f50_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/60c5e4a33a2db50e182cb3887d12e16c_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/36c3e28b71f7d8a74e0f2844503e43ab_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/2c5167492c5e72d917795fba041af855_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/25f2a4301b261e539e83693647200482_MD5.jpg",
+    "x-AI-Studio/LLM-WIKI/raw/笔记同步助手/images/8a6ac25f866282313453ed4098a5e6b2_MD5.png",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-社区介绍-2401/第二大脑社区介绍.canvas",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-社区介绍-2401/输出-学习路径.canvas",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-05-UB模版拆解-2403/Ub模版拆解.canvas",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-05-萃取/输出-文稿-萃取.canvas",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-05-萃取/Distill-萃取的高亮部分.canvas",
+    "x-AI-Studio/x30-内容创作/x33-已发布/2024-2025/文稿-09-防弹笔记法/白板2407-防弹笔记法介绍.canvas",
+    "x-AI-Studio/13-Creation-创作集/12-3-已发布/2024-2025/文稿-09-防弹笔记法/白板2407-防弹笔记法介绍.canvas",
+    "x-AI-Studio/13-Creation-创作集/12-3-已发布/2024-2025/文稿-社区介绍-2401/输出-学习路径.canvas",
+    "x-AI-Studio/13-Creation-创作集/12-3-已发布/2024-2025/文稿-社区介绍-2401/第二大脑社区介绍.canvas",
+    "x-AI-Studio/13-Creation-创作集/12-3-已发布/2024-2025/文稿-05-萃取/输出-文稿-萃取.canvas"
+  ]
+}

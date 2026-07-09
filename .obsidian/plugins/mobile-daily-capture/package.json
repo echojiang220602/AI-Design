@@ -1,0 +1,16 @@
+{
+  "name": "mobile-daily-capture",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "build": "../action-tracker/node_modules/.bin/esbuild main.ts --platform=browser --format=cjs --outfile=main.js",
+    "watch": "../action-tracker/node_modules/.bin/esbuild main.ts --platform=browser --format=cjs --outfile=main.js --watch"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "esbuild": "^0.28.0",
+    "obsidian": "^1.12.3",
+    "typescript": "^6.0.2"
+  }
+}

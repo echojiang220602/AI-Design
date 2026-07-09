@@ -1,0 +1,22 @@
+{
+  "id": "conv-1778503938015-dkcls831e",
+  "providerId": "claude",
+  "title": "提取文字摘要",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778503938016,
+  "updatedAt": 1779327596396,
+  "lastResponseAt": 1779327262699,
+  "sessionId": "54be53c7-169b-48d0-8590-47a66c0bfa73",
+  "providerState": {
+    "providerSessionId": "54be53c7-169b-48d0-8590-47a66c0bfa73"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

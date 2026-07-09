@@ -1,0 +1,23 @@
+{
+  "id": "conv-1783322823393-jhzvsehea",
+  "providerId": "claude",
+  "title": "审查AI数字人中台项目方案并提出改进建议",
+  "titleGenerationStatus": "success",
+  "createdAt": 1783322823394,
+  "updatedAt": 1783406454309,
+  "lastResponseAt": 1783325059476,
+  "sessionId": "ffd8afac-f006-4fd2-a2b5-dc38f0e99457",
+  "providerState": {
+    "providerSessionId": "ffd8afac-f006-4fd2-a2b5-dc38f0e99457"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 38255,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 24009,
+    "contextWindow": 1000000,
+    "contextTokens": 62264,
+    "percentage": 6,
+    "contextWindowIsAuthoritative": true
+  }
+}

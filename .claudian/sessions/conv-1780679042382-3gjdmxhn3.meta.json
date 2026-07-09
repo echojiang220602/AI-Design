@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780679042382-3gjdmxhn3",
+  "providerId": "claude",
+  "title": "优化OpenClaw橙皮书原文格式",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780679042382,
+  "updatedAt": 1781658880788,
+  "lastResponseAt": 1780679274668,
+  "sessionId": "93fca94a-c057-4959-86b4-5ce452caa404",
+  "providerState": {
+    "providerSessionId": "93fca94a-c057-4959-86b4-5ce452caa404"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 1779,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 100288,
+    "contextWindow": 1000000,
+    "contextTokens": 102067,
+    "percentage": 10,
+    "contextWindowIsAuthoritative": true
+  }
+}

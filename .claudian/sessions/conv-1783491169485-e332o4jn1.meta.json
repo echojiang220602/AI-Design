@@ -1,0 +1,23 @@
+{
+  "id": "conv-1783491169485-e332o4jn1",
+  "providerId": "claude",
+  "title": "打招呼",
+  "titleGenerationStatus": "success",
+  "createdAt": 1783491169488,
+  "updatedAt": 1783603658716,
+  "lastResponseAt": 1783603645621,
+  "sessionId": "4ca93f87-192f-4cae-9d76-826d6ec3094c",
+  "providerState": {
+    "providerSessionId": "4ca93f87-192f-4cae-9d76-826d6ec3094c"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 79713,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 24009,
+    "contextWindow": 1000000,
+    "contextTokens": 103722,
+    "percentage": 10,
+    "contextWindowIsAuthoritative": true
+  }
+}

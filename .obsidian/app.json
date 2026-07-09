@@ -1,0 +1,53 @@
+{
+  "alwaysUpdateLinks": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "2",
+    "downscalePercent": 100
+  },
+  "promptDelete": false,
+  "strictLineBreaks": false,
+  "useMarkdownLinks": false,
+  "uriCallbacks": false,
+  "attachmentFolderPath": "40-storage/43-picture-图片",
+  "showInlineTitle": true,
+  "mobileToolbarCommands": [
+    "editor:insert-wikilink",
+    "editor:toggle-blockquote",
+    "editor:toggle-bullet-list",
+    "editor:toggle-numbered-list",
+    "editor:toggle-checklist-status",
+    "editor:indent-list",
+    "editor:unindent-list",
+    "editor:undo",
+    "editor:redo",
+    "editor:configure-toolbar",
+    "editor:attach-file",
+    "editor:insert-horizontal-rule",
+    "editor:cycle-list-checklist",
+    "editor:insert-link"
+  ],
+  "readableLineLength": true,
+  "propertiesInDocument": "visible",
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "showIndentGuide": false,
+  "rightToLeft": false,
+  "tabSize": 4,
+  "focusNewTab": true,
+  "smartIndentList": false,
+  "userIgnoreFilters": [
+    "40-storage/45-configs-配置文件/"
+  ],
+  "autoPairMarkdown": true,
+  "autoPairBrackets": true,
+  "spellcheck": false,
+  "useTab": true,
+  "vimMode": false,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "+",
+  "openBehavior": "daily"
+}

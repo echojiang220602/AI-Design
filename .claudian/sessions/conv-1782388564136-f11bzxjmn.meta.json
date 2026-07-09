@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782388564136-f11bzxjmn",
+  "providerId": "claude",
+  "title": "Move daily-md-rename skill zip to desktop",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782388564137,
+  "updatedAt": 1783607683709,
+  "lastResponseAt": 1783607659642,
+  "sessionId": "506b9591-8839-45c9-a34f-042855d8c3bd",
+  "providerState": {
+    "providerSessionId": "506b9591-8839-45c9-a34f-042855d8c3bd"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 164830,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 24009,
+    "contextWindow": 1000000,
+    "contextTokens": 188839,
+    "percentage": 19,
+    "contextWindowIsAuthoritative": true
+  }
+}

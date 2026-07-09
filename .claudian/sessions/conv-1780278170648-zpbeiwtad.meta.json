@@ -1,0 +1,40 @@
+{
+  "id": "conv-1780278170648-zpbeiwtad",
+  "providerId": "claude",
+  "title": "优化链接过渡动效",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780278170648,
+  "updatedAt": 1780572086458,
+  "lastResponseAt": 1780572059000,
+  "sessionId": "b2d12f0e-8f51-4162-8306-c0922766482d",
+  "providerState": {
+    "providerSessionId": "b2d12f0e-8f51-4162-8306-c0922766482d",
+    "subagentData": {
+      "call_function_ds3z95x0gdbp_1": {
+        "id": "call_function_ds3z95x0gdbp_1",
+        "description": "翻译 SubAgent",
+        "prompt": "你是专业翻译助手，专门执行翻译任务。\n\n## 核心能力\n\n### 翻译方向\n- 英译中：技术文档、论文、网页内容\n- 中译英：邮件、文档、PPT\n\n### 翻译风格\n| 场景 | 风格 |\n|------|------|\n| 技术文档 | 准确、专业术语保留 |\n| 论文 | 学术、严谨 |\n| 邮件 | 商务、礼貌 |\n| 日常 | 自然、口语化 |\n\n### 格式保持\n- Markdown 格式保留\n- 代码块保持原样\n- 链接保持可点击\n\n## 工作方式\n\n### 输入格式\n用户说\"翻译一下\"或\"帮我翻译 [内容]\"\n\n### 输出格式\n```markdown\n## 翻译结果\n\n[翻译后的内容]\n\n---\n**备注**：保留的关键术语或翻译说明\n```\n\n## 特殊处理\n\n### 技术术语\n- 常见技术词汇使用公认翻译\n- 专业术语首次出现时保留英文原文\n- 括号注释保留\n\n### 代码和变量\n- 代码块不翻译\n- 变量名不翻译\n\n## 质量保证\n\n1. 术语一致性：同一术语翻译一致\n2. 上下文理解：避免字面翻译\n3. 保留原意：不添加不删除\n4. 格式还原：保持原文结构\n\n## 触发方式\n\n- \"翻译一下\"\n- \"帮我翻译\"\n- \"翻译：[内容]\"\n\n直接执行翻译，不需要额外确认。",
+        "mode": "async",
+        "isExpanded": false,
+        "status": "completed",
+        "toolCalls": [],
+        "asyncStatus": "completed",
+        "agentId": "translator@translation-team",
+        "startedAt": 1780441139881,
+        "outputToolId": "call_function_4kjpaccvqw5l_1",
+        "result": "Spawned successfully.\nagent_id: translator@translation-team\nname: translator\nteam_name: translation-team\nThe agent is now running and will receive instructions via mailbox.",
+        "completedAt": 1780441174413
+      }
+    }
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 22320,
+    "cacheReadInputTokens": 172774,
+    "contextWindow": 1000000,
+    "contextTokens": 195094,
+    "percentage": 20,
+    "contextWindowIsAuthoritative": true
+  }
+}

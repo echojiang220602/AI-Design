@@ -1,0 +1,20 @@
+{
+  "id": "conv-1778404926453-tfuj9l5qz",
+  "title": "提炼文章摘要",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778404926453,
+  "updatedAt": 1778501796189,
+  "lastResponseAt": 1778501781938,
+  "sessionId": "670c2ad4-5c46-4b2f-b429-d16f92af6d3c",
+  "sdkSessionId": "670c2ad4-5c46-4b2f-b429-d16f92af6d3c",
+  "currentNote": "30-Time/34-Daily-日志/2026-05-11（一）.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 6881,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 6881,
+    "percentage": 3
+  }
+}

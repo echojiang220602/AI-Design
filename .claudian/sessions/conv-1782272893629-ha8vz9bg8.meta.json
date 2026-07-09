@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782272893629-ha8vz9bg8",
+  "providerId": "claude",
+  "title": "Add AI strategy to half-year summary",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782272893629,
+  "updatedAt": 1782386743228,
+  "lastResponseAt": 1782275187932,
+  "sessionId": "a98690c5-dab8-425d-8fa0-5a3e7ce91f42",
+  "providerState": {
+    "providerSessionId": "a98690c5-dab8-425d-8fa0-5a3e7ce91f42"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 49829,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 24009,
+    "contextWindow": 1000000,
+    "contextTokens": 73838,
+    "percentage": 7,
+    "contextWindowIsAuthoritative": true
+  }
+}

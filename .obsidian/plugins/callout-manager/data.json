@@ -1,0 +1,45 @@
+{
+  "callouts": {
+    "custom": [
+      "party",
+      "quote",
+      "example",
+      "monday"
+    ],
+    "settings": {
+      "quote": [
+        {
+          "changes": {
+            "color": "208, 181, 48"
+          }
+        }
+      ],
+      "party": [
+        {
+          "changes": {
+            "color": "0, 163, 114"
+          }
+        }
+      ],
+      "example": [
+        {
+          "changes": {
+            "color": "82, 139, 212"
+          }
+        }
+      ],
+      "monday": [
+        {
+          "changes": {
+            "color": "82, 139, 212"
+          }
+        }
+      ]
+    }
+  },
+  "calloutDetection": {
+    "obsidian": true,
+    "theme": true,
+    "snippet": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782992693012-jgem6fgk7",
+  "providerId": "claude",
+  "title": "新增验收工单系统标准",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782992693014,
+  "updatedAt": 1782993037367,
+  "lastResponseAt": 1782993027390,
+  "sessionId": "fba69a24-da7f-4fa1-8b24-3c6d0e484c54",
+  "providerState": {
+    "providerSessionId": "fba69a24-da7f-4fa1-8b24-3c6d0e484c54"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 2205,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 34592,
+    "contextWindow": 1000000,
+    "contextTokens": 36797,
+    "percentage": 4,
+    "contextWindowIsAuthoritative": true
+  }
+}
